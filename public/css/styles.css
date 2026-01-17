@@ -1,107 +1,107 @@
 :root {
-    --bg-color: #121212;
-    --panel-bg: #1e1e1e;
-    --text-color: #ffffff;
-    --primary-color: #bb86fc;
-    --accent-color: #03dac6;
-    --input-bg: #333333;
+  --bg-color: #121212;
+  --panel-bg: #1e1e1e;
+  --text-color: #ffffff;
+  --primary-color: #bb86fc;
+  --accent-color: #03dac6;
+  --input-bg: #333333;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    overflow: hidden;
-    /* Prevent scrolling on screens */
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow: hidden;
+  /* Prevent scrolling on screens */
 }
 
 /* Controller specific styles */
 .container {
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 h1 {
-    color: var(--accent-color);
-    text-transform: uppercase;
-    letter-spacing: 2px;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .control-group {
-    background: var(--panel-bg);
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  background: var(--panel-bg);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: var(--primary-color);
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: var(--primary-color);
 }
 
-input[type="range"] {
-    width: 100%;
-    -webkit-appearance: none;
-    appearance: none;
-    background: var(--input-bg);
-    outline: none;
-    border-radius: 5px;
-    height: 10px;
+input[type='range'] {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--input-bg);
+  outline: none;
+  border-radius: 5px;
+  height: 10px;
 }
 
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: var(--accent-color);
-    cursor: pointer;
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  cursor: pointer;
 }
 
-input[type="color"] {
-    width: 100%;
-    height: 50px;
-    border: none;
-    cursor: pointer;
-    background: none;
+input[type='color'] {
+  width: 100%;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+  background: none;
 }
 
 button {
-    background: var(--primary-color);
-    color: #000;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: transform 0.1s;
-    width: 100%;
-    margin-top: 10px;
+  background: var(--primary-color);
+  color: #000;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.1s;
+  width: 100%;
+  margin-top: 10px;
 }
 
 button:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 /* Visualizer specific */
 canvas {
-    display: block;
+  display: block;
 }
 
 .debug-info {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: lime;
-    font-family: monospace;
-    font-size: 24px;
-    pointer-events: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: lime;
+  font-family: monospace;
+  font-size: 24px;
+  pointer-events: none;
 }

@@ -1,10 +1,12 @@
 import { CONFIG, getScreenId } from '../common/config.js';
 import { fitToWindow } from '../common/viewport.js';
 
-const socket = io();
-const canvas = document.getElementById('canvas');
+const socket = /** @type {any} */ (window).io();
+/** @type {HTMLCanvasElement} */
+const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas'));
 const ctx = canvas.getContext('2d');
-const debugEl = document.getElementById('debug');
+/** @type {HTMLElement} */
+const debugEl = /** @type {HTMLElement} */ (document.getElementById('debug'));
 
 // Setup Screen
 const screenId = getScreenId();
@@ -50,16 +52,18 @@ function draw() {
   ctx.save();
   // 2. Coordinate System Shift
   // We shift the canvas origin to the left by globalOffsetX.
-  // This allows us to draw objects using their absolute World Coordinates (x, y) 
+  // This allows us to draw objects using their absolute World Coordinates (x, y)
   // without needing to manually subtract the offset for every single object.
   ctx.translate(-globalOffsetX, 0);
 
-  objects.forEach(obj => {
+  objects.forEach((obj) => {
     // Culling: Performance Optimization
     // Only draw if the object is effectively visible in this screen's viewport.
     // Screen Viewport in World Coords: [globalOffsetX, globalOffsetX + CONFIG.SCREEN_WIDTH]
-    if (obj.x + obj.radius < globalOffsetX ||
-      obj.x - obj.radius > globalOffsetX + CONFIG.SCREEN_WIDTH) {
+    if (
+      obj.x + obj.radius < globalOffsetX ||
+      obj.x - obj.radius > globalOffsetX + CONFIG.SCREEN_WIDTH
+    ) {
       return;
     }
 

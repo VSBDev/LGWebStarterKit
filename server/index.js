@@ -29,7 +29,7 @@ console.log(`- World Size: ${WORLD_WIDTH}x${WORLD_HEIGHT}`);
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: { origin: "*" }
+  cors: { origin: '*' }
 });
 
 // serve Dynamic Config to Clients
@@ -71,11 +71,11 @@ app.get('/controller', (req, res) => res.sendFile(path.join(PUBLIC_PATH, 'contro
 
 let gameState = {
   settings: {
-    speed: 5,         // Movement speed multiplier
+    speed: 5, // Movement speed multiplier
     color: '#00ff00',
     shape: 'circle',
     gravity: false,
-    cameraZoom: 2.5   // Multiplier for camera distance
+    cameraZoom: 2.5 // Multiplier for camera distance
   },
   objects: [
     // Initial ball with 3D velocity (X, Y, Z)
@@ -99,7 +99,7 @@ setInterval(() => {
   const publicState = {
     settings: gameState.settings,
     camera: gameState.camera,
-    objects: gameState.objects.map(obj => ({
+    objects: gameState.objects.map((obj) => ({
       id: obj.id,
       x: parseFloat(obj.x.toFixed(2)), // Round to 2 decimal places to save bytes
       y: parseFloat(obj.y.toFixed(2)),
@@ -123,7 +123,7 @@ function updatePhysics() {
   // 2. Update Objects
   const { speed, gravity } = gameState.settings;
 
-  gameState.objects.forEach(obj => {
+  gameState.objects.forEach((obj) => {
     // Calculate current speed magnitude in 3D space
     const currentMag = Math.sqrt(obj.vx * obj.vx + obj.vy * obj.vy + obj.vz * obj.vz) || 1;
 
@@ -152,7 +152,7 @@ function updatePhysics() {
     // X-Axis Bounce (Left/Right Walls)
     if (obj.x < obj.radius) {
       obj.x = obj.radius; // Reset position to avoid sticking
-      obj.vx *= -1;                 // Invert velocity
+      obj.vx *= -1; // Invert velocity
     } else if (obj.x > WORLD_WIDTH - obj.radius) {
       obj.x = WORLD_WIDTH - obj.radius;
       obj.vx *= -1;
@@ -192,7 +192,7 @@ io.on('connection', (socket) => {
     // Merge settings
     gameState.settings = { ...gameState.settings, ...newSettings };
 
-    // NOTE: We do NOT update existing objects' color here. 
+    // NOTE: We do NOT update existing objects' color here.
     // This allows the user to have multi-colored balls.
     // The "Settings Color" acts as a "Current Brush Color" for FUTURE balls.
 
@@ -206,17 +206,19 @@ io.on('connection', (socket) => {
     // When the user clicks "Reset", we clear all balls and spawn a single "Master Ball".
     // This ball is placed exactly in the center with a defined velocity.
     // We explicitly set z:0 to prevent any depth issues.
-    gameState.objects = [{
-      x: WORLD_WIDTH / 2,
-      y: WORLD_HEIGHT / 2,
-      z: 0,
-      vx: 5,
-      vy: 5,
-      vz: 5,
-      radius: 50,
-      color: gameState.settings.color || '#00ff00', // Start with current global color
-      id: 1
-    }];
+    gameState.objects = [
+      {
+        x: WORLD_WIDTH / 2,
+        y: WORLD_HEIGHT / 2,
+        z: 0,
+        vx: 5,
+        vy: 5,
+        vz: 5,
+        radius: 50,
+        color: gameState.settings.color || '#00ff00', // Start with current global color
+        id: 1
+      }
+    ];
 
     // Broadcast immediately so clients snap to the new state
     io.emit('state-update', gameState);
@@ -225,7 +227,11 @@ io.on('connection', (socket) => {
   socket.on('spawn-ball', () => {
     // Create a new ball at the center with random outward velocity
     // Assign a RANDOM vibrant color for instant fun
-    const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    const randomColor =
+      '#' +
+      Math.floor(Math.random() * 16777215)
+        .toString(16)
+        .padStart(6, '0');
 
     const newBall = {
       x: WORLD_WIDTH / 2,

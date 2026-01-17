@@ -2,8 +2,8 @@ import * as THREE from 'three';
 import { CONFIG, getScreenId } from '../common/config.js';
 import { fitToWindow } from '../common/viewport.js';
 
-const socket = io();
-const debugEl = document.getElementById('debug');
+const socket = /** @type {any} */ (window).io();
+const debugEl = /** @type {HTMLElement} */ (document.getElementById('debug'));
 const screenId = getScreenId();
 
 debugEl.innerText = `Screen: ${screenId} (3D Mode)`;
@@ -15,7 +15,12 @@ scene.background = new THREE.Color(0x111111);
 scene.fog = new THREE.FogExp2(0x111111, 0.00005);
 
 // Camera Setup
-const camera = new THREE.PerspectiveCamera(75, CONFIG.SCREEN_WIDTH / CONFIG.SCREEN_HEIGHT, 1, 10000);
+const camera = new THREE.PerspectiveCamera(
+  75,
+  CONFIG.SCREEN_WIDTH / CONFIG.SCREEN_HEIGHT,
+  1,
+  10000
+);
 
 // --- The Liquid Galaxy Magic ---
 // This is the most critical part for multi-screen sync.
@@ -105,10 +110,10 @@ socket.on('state-update', (state) => {
 
 function updateScene() {
   const { objects, settings } = gameState;
-  const currentIds = new Set(objects.map(o => o.id));
+  const currentIds = new Set(objects.map((o) => o.id));
 
   // Remove old
-  Object.keys(meshes).forEach(id => {
+  Object.keys(meshes).forEach((id) => {
     if (!currentIds.has(parseInt(id))) {
       const mesh = meshes[id];
       scene.remove(mesh);
@@ -127,13 +132,15 @@ function updateScene() {
   });
 
   // Update/Create new
-  objects.forEach(obj => {
+  objects.forEach((obj) => {
     let mesh = meshes[obj.id];
 
     if (!mesh) {
       // Create New
       const geometry = new THREE.SphereGeometry(obj.radius, 32, 32);
-      const material = new THREE.MeshBasicMaterial({ color: obj.color || settings.color || '#00ff00' });
+      const material = new THREE.MeshBasicMaterial({
+        color: obj.color || settings.color || '#00ff00'
+      });
       mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
       meshes[obj.id] = mesh;
@@ -173,7 +180,7 @@ function animate() {
   // We calculate base distance to fit height, then apply modifier
   if (gameState.settings && gameState.settings.cameraZoom) {
     const vFOV = THREE.MathUtils.degToRad(camera.fov);
-    const baseDist = (CONFIG.WORLD_HEIGHT / 2) / Math.tan(vFOV / 2); // Use WORLD_HEIGHT, not just SCREEN_HEIGHT
+    const baseDist = CONFIG.WORLD_HEIGHT / 2 / Math.tan(vFOV / 2); // Use WORLD_HEIGHT, not just SCREEN_HEIGHT
     // Actually fullHeight aka WORLD_HEIGHT is correct standard for "fitting" the view
     camera.position.z = baseDist * gameState.settings.cameraZoom;
   }

@@ -1,35 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LG 3D Visualizer</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #000;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <title>LG 3D Visualizer</title>
-  <link rel="stylesheet" href="../css/styles.css">
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background-color: #000;
-    }
-
-    canvas {
-      display: block;
-    }
-  </style>
-  <script src="/socket.io/socket.io.js"></script>
-  <!-- Import Map for Three.js -->
-  <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-            }
+      canvas {
+        display: block;
+      }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Import Map for Three.js -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
         }
+      }
     </script>
-</head>
+  </head>
 
-<body>
-  <div id="debug" class="debug-info">Screen: Loading...</div>
-  <script type="module" src="./scene.js"></script>
-</body>
-
+  <body>
+    <div id="debug" class="debug-info">Screen: Loading...</div>
+    <script type="module" src="./scene.js"></script>
+  </body>
 </html>

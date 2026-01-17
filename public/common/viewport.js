@@ -30,7 +30,7 @@ export function fitToWindow(element) {
 
     // Optional: Center horizontally if there's space
     if (scaleX > scaleY) {
-      const extraSpace = availableWidth - (CONFIG.SCREEN_WIDTH * scale);
+      const extraSpace = availableWidth - CONFIG.SCREEN_WIDTH * scale;
       element.style.marginLeft = `${extraSpace / 2}px`;
     } else {
       element.style.marginLeft = `0px`;

@@ -1,87 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LG Controller</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css" />
     <script src="/socket.io/socket.io.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <h1>Liquid Controller</h1>
+      <h1>Liquid Controller</h1>
 
-        <div class="control-group">
-            <label for="speed">Bounciness (Speed)</label>
-            <input type="range" id="speed" min="1" max="50" value="5">
-        </div>
+      <div class="control-group">
+        <label for="speed">Bounciness (Speed)</label>
+        <input type="range" id="speed" min="1" max="50" value="5" />
+      </div>
 
-        <div class="control-group">
-            <label for="color">Shape Color</label>
-            <input type="color" id="color" value="#00ff00">
-        </div>
+      <div class="control-group">
+        <label for="color">Shape Color</label>
+        <input type="color" id="color" value="#00ff00" />
+      </div>
 
-        <div class="control-group">
-            <label for="zoom">3D Camera Zoom</label>
-            <input type="range" id="zoom" min="0.5" max="5.0" step="0.1" value="2.5">
-        </div>
+      <div class="control-group">
+        <label for="zoom">3D Camera Zoom</label>
+        <input type="range" id="zoom" min="0.5" max="5.0" step="0.1" value="2.5" />
+      </div>
 
-        <div class="control-group">
-            <label for="gravity">Gravity Mode</label>
-            <input type="checkbox" id="gravity" style="width: 25px; height: 25px;">
-        </div>
+      <div class="control-group">
+        <label for="gravity">Gravity Mode</label>
+        <input type="checkbox" id="gravity" style="width: 25px; height: 25px" />
+      </div>
 
-        <button id="add-ball" style="background: var(--accent-color); margin-bottom: 10px;">Add Ball +</button>
-        <button id="reset">Reset Simulation</button>
+      <button id="add-ball" style="background: var(--accent-color); margin-bottom: 10px">
+        Add Ball +
+      </button>
+      <button id="reset">Reset Simulation</button>
     </div>
 
     <script type="module">
-        import { CONFIG } from '../common/config.js';
+      import { CONFIG } from '../common/config.js';
 
-        const socket = io();
+      const socket = io();
 
-        const speedInput = document.getElementById('speed');
-        const colorInput = document.getElementById('color');
-        const gravityInput = document.getElementById('gravity');
-        const zoomInput = document.getElementById('zoom');
-        const resetButton = document.getElementById('reset');
-        const addBallButton = document.getElementById('add-ball');
+      const speedInput = document.getElementById('speed');
+      const colorInput = document.getElementById('color');
+      const gravityInput = document.getElementById('gravity');
+      const zoomInput = document.getElementById('zoom');
+      const resetButton = document.getElementById('reset');
+      const addBallButton = document.getElementById('add-ball');
 
-        // Throttle updates provided by slider
-        speedInput.addEventListener('input', (e) => {
-            socket.emit('update-settings', { speed: parseInt(e.target.value) });
-        });
+      // Throttle updates provided by slider
+      speedInput.addEventListener('input', (e) => {
+        socket.emit('update-settings', { speed: parseInt(e.target.value) });
+      });
 
-        zoomInput.addEventListener('input', (e) => {
-            socket.emit('update-settings', { cameraZoom: parseFloat(e.target.value) });
-        });
+      zoomInput.addEventListener('input', (e) => {
+        socket.emit('update-settings', { cameraZoom: parseFloat(e.target.value) });
+      });
 
-        colorInput.addEventListener('input', (e) => {
-            socket.emit('update-settings', { color: e.target.value });
-        });
+      colorInput.addEventListener('input', (e) => {
+        socket.emit('update-settings', { color: e.target.value });
+      });
 
-        gravityInput.addEventListener('change', (e) => {
-            socket.emit('update-settings', { gravity: e.target.checked });
-        });
+      gravityInput.addEventListener('change', (e) => {
+        socket.emit('update-settings', { gravity: e.target.checked });
+      });
 
-        addBallButton.addEventListener('click', () => {
-            socket.emit('spawn-ball');
-        });
+      addBallButton.addEventListener('click', () => {
+        socket.emit('spawn-ball');
+      });
 
-        resetButton.addEventListener('click', () => {
-            socket.emit('reset-ball');
-        });
+      resetButton.addEventListener('click', () => {
+        socket.emit('reset-ball');
+      });
 
-        // Listen for external updates (if multiple controllers)
-        socket.on('settings-changed', (settings) => {
-            if (settings.speed) speedInput.value = settings.speed;
-            if (settings.color) colorInput.value = settings.color;
-            if (settings.cameraZoom) zoomInput.value = settings.cameraZoom;
-            if (settings.gravity !== undefined) gravityInput.checked = settings.gravity;
-        });
+      // Listen for external updates (if multiple controllers)
+      socket.on('settings-changed', (settings) => {
+        if (settings.speed) speedInput.value = settings.speed;
+        if (settings.color) colorInput.value = settings.color;
+        if (settings.cameraZoom) zoomInput.value = settings.cameraZoom;
+        if (settings.gravity !== undefined) gravityInput.checked = settings.gravity;
+      });
     </script>
-</body>
-
+  </body>
 </html>

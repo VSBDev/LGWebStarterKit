@@ -6,14 +6,30 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
-    "dev": "nodemon server/index.js"
+    "dev": "nodemon server/index.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "check-types": "tsc --project jsconfig.json"
   },
   "dependencies": {
     "express": "^4.18.2",
     "socket.io": "^4.7.4"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.8",
+    "@types/socket.io": "^3.0.2",
+    "@types/three": "^0.182.0",
+    "@vitest/coverage-v8": "^4.0.17",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "nodemon": "^3.0.3",
+    "prettier": "^3.8.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.17"
   },
   "keywords": [
     "liquid-galaxy",

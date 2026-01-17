@@ -8,3 +8,6 @@ yarn-error.log*
 .vscode
 *.swp
 *.swo
+dist
+coverage
+sample_games/
